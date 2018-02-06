@@ -19,14 +19,10 @@ public class MainController {
     @Autowired
     private HttpServletRequestDeserializer deserializer;
 
-    @PostMapping
-    public ObjectNode handlePost(HttpServletRequest request) {
+    @RequestMapping
+    public ObjectNode handleRequest(HttpServletRequest request){
 
-        return deserializer.deserialize(request);
-    }
-
-    @GetMapping
-    public ObjectNode handleGet(HttpServletRequest request){
+        log.info("Handling request from address:  " + request.getRemoteAddr());
 
         return deserializer.deserialize(request);
     }

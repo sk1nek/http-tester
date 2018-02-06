@@ -32,6 +32,11 @@ public class HttpServletRequestDeserializer {
         ObjectNode params = root.putObject("Parameters");
         parseParams(request, params);
 
+        ObjectNode others = root.putObject("Other");
+        others.put("origin", request.getRemoteAddr());
+        others.put("url", request.getRequestURI());
+
+
         return root;
     }
 
@@ -57,16 +62,5 @@ public class HttpServletRequestDeserializer {
         }
     }
 
-    private void parseAttributes(HttpServletRequest request, ObjectNode attrs){
-
-        Enumeration<String> attrEnum = request.getAttributeNames();
-        String attributeName;
-
-        while(attrEnum.hasMoreElements()){
-            attributeName = attrEnum.nextElement();
-            attrs.put(attributeName, request.getParameter(attributeName));
-        }
-
-    }
 
 }
